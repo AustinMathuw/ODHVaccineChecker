@@ -16,6 +16,7 @@ mkdir -p $DIR/logs
 logFile="$DIR/logs/$unix.log"
 
 main() {
+	cd $DIR/../
 	git fetch
 	git pull
 	cd bot && npx nightwatch vaccine_check.js
