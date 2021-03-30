@@ -106,7 +106,7 @@ describe('Vaccine Checker', function() {
 
         if(!shouldAlert) {
           console.log("No appointments found...");
-        }// else {
+        } else {
           var params = {
             Message: message,
             TopicArn: snsArn
@@ -119,7 +119,7 @@ describe('Vaccine Checker', function() {
               function(err) {
               console.error(err, err.stack);
             });;
-        //}
+        }
       })
   });
 
