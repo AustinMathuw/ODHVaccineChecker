@@ -67,37 +67,45 @@ describe('Vaccine Checker', function() {
                 browser.pause(1000)
                   .element('css selector', 'h3', async function(result) {
                     if(result.status != -1) {
-						browser.assert.containsText({
-							selector: 'h3'
-						}, "appointments available").getText("p[class='tw-mb-5']", (res) => {
-							locationsToCheck[idx].appointmentsAvailable = true;
-							locationsToCheck[idx].earliestDate = res.value;
-							browser.back().waitForElementVisible('body', () => {
-								resolve();
-							})
-						})
+                      browser.assert.containsText({
+                        selector: 'h3'
+                      }, "appointments available").getText("h3[class='tw-text-lg tw-font-bold tw-mb-1 tw-text-n800']", (res1) => {
+                        browser.getText("p[class='tw-mb-5']", (res2) => {
+                          var aaString = res1.value;
+                          var aaArr = aaString.split(" ");
+                          locationsToCheck[idx].appointmentsAvailable = aaArr[0];
+                          locationsToCheck[idx].earliestDate = res2.value;
+                          browser.back().waitForElementVisible('body', () => {
+                            resolve();
+                          })
+                        });
+                      })
                     } else {
-						browser.click("button[data-testid='calendar-next-button']", async () => {
-							browser.pause(1000)
-								.element('css selector', 'h3', async function(result) {
-									if(result.status != -1) {
-										browser.assert.containsText({
-											selector: 'h3'
-										}, "appointments available").getText("p[class='tw-mb-5']", (res) => {
-											locationsToCheck[idx].appointmentsAvailable = true;
-											locationsToCheck[idx].earliestDate = res.value;
-											browser.back().waitForElementVisible('body', () => {
-												resolve();
-											})
-										})
-									} else {
-										browser.back()
-											.waitForElementVisible('body', () => {
-											resolve();
-										})
-									}
-								})
-						})
+                      browser.click("button[data-testid='calendar-next-button']", async () => {
+                        browser.pause(1000)
+                          .element('css selector', 'h3', async function(result) {
+                            if(result.status != -1) {
+                              browser.assert.containsText({
+                                selector: 'h3'
+                              }, "appointments available").getText("h3[class='tw-text-lg tw-font-bold tw-mb-1 tw-text-n800']", (res1) => {
+                                browser.getText("p[class='tw-mb-5']", (res2) => {
+                                  var aaString = res1.value;
+                                  var aaArr = aaString.split(" ");
+                                  locationsToCheck[idx].appointmentsAvailable = aaArr[0];
+                                  locationsToCheck[idx].earliestDate = res2.value;
+                                  browser.back().waitForElementVisible('body', () => {
+                                    resolve();
+                                  })
+                                });
+                              })
+                            } else {
+                              browser.back()
+                                .waitForElementVisible('body', () => {
+                                resolve();
+                              })
+                            }
+                          })
+                      })
                     }
                 })
               })
@@ -110,14 +118,15 @@ describe('Vaccine Checker', function() {
         var location = 1;
         var message = "No appointments found...";
         for (idx in locationsToCheck) {
-          if(locationsToCheck[idx].appointmentsAvailable) {
+          if(locationsToCheck[idx].appointmentsAvailable != 0) {
             if(!shouldAlert) {
               beep(3, 500);
               shouldAlert = true;
               message = "COVID-19 Vaccination Appointments are available!\n\nSign up here: https://gettheshot.coronavirus.ohio.gov/\nSearch location: " + searchLocation + "\n\n";
             }
             message = message + location + ": " + locationsToCheck[idx].location + "\n";
-            message = message + "	Earliest Date: " + locationsToCheck[idx].earliestDate.replace("For ", "") + "\n\n";
+            message = message + "	Earliest Date: " + locationsToCheck[idx].earliestDate.replace("For ", "") + "\n";
+            message = message + "	Appointments Available on Earliest Date: " + locationsToCheck[idx].appointmentsAvailable + "\n\n";
             location++;
           }
         }
