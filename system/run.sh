@@ -1,5 +1,5 @@
 #!/bin/bash
-
+export PATH="/home/ec2-user/.nvm/versions/node/v15.12.0/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/ec2-user/.local/bin:/home/ec2-user/bin"
 export searchLocation="2000 PROSPECT AVE E CLEVELAND OH 44115";
 export vaccineLocation="Wolstein Center"
 export snsArn="arn:aws:sns:us-east-1:731744095435:VaccineBot";
