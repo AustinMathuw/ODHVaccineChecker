@@ -1,0 +1,31 @@
+service: odh-vaccine-bot
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-east-2'}
+  profile: ${opt:profile, 'default'}
+  environment:
+    searchLocation: "2000 PROSPECT AVE E CLEVELAND OH 44115"
+    vaccineLocation: "Wolstein Center"
+    snsArn: "arn:aws:sns:us-east-1:731744095435:VaccineBot"
+
+package:
+  exclude:
+    - node_modules/aws-sdk/**
+
+functions:
+  checkAppointments:
+    handler: handler.checkAppointments
+    layers:
+      - arn:aws:lambda:us-east-2:764866452798:layer:chrome-aws-lambda:20
+    memorySize: 1024
+    timeout: 30
+    events:
+      - http:
+          path: checkAppointments
+          method: get
