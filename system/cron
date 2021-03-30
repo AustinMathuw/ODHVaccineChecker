@@ -1,1 +1,1 @@
-0,5,10,15,20,25,30,35,40,45,50,55 * * * * bash ODHVaccineChecker/system/run.sh
+*/5 * * * * export PATH="/home/ec2-user/.nvm/versions/node/v15.12.0/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/ec2-user/.local/bin:/home/ec2-user/bin" && bash ODHVaccineChecker/system/run.sh
