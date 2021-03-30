@@ -113,7 +113,7 @@ describe('Vaccine Checker', function() {
             if(!shouldAlert) {
               beep(3, 500);
               shouldAlert = true;
-              message = "Appointments are available!\n\n";
+              message = "COVID-19 Vaccination Appointments are available!\n\n";
             }
             message = message + location + ": " + locationsToCheck[idx].location + "\n";
             message = message + "	Earliest Date: " + locationsToCheck[idx].earliestDate.replace("For ", "") + "\n\n";

@@ -1,9 +1,9 @@
 #!/bin/bash
 
-#export searchLocation="2000 PROSPECT AVE E CLEVELAND OH 44115"
-#export vaccineLocation="Wolstein Center"
-export searchLocation="Chillicothe, OH 45601, USA"
-export vaccineLocation="Adena"
+export searchLocation="2000 PROSPECT AVE E CLEVELAND OH 44115"
+export vaccineLocation="Wolstein Center"
+#export searchLocation="Chillicothe, OH 45601, USA"
+#export vaccineLocation="Adena"
 export snsArn="arn:aws:sns:us-east-1:731744095435:VaccineBot"
 
 unix="$(date +%s)"
