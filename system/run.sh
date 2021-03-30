@@ -9,12 +9,11 @@ export snsArn="arn:aws:sns:us-east-1:731744095435:VaccineBot"
 unix="$(date +%s)"
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-if [ -d "$DIR/logs" ] 
+if [ ! -d "$DIR/logs" ] 
 then
-	rm -r $DIR/logs
+	mkdir -p $DIR/logs
 fi
 
-mkdir -p $DIR/logs
 logFile="$DIR/logs/$unix.log"
 
 main() {

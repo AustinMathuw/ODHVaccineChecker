@@ -67,14 +67,15 @@ describe('Vaccine Checker', function() {
                 browser.pause(1000)
                   .element('css selector', 'h3', async function(result) {
                     if(result.status != -1) {
-                      browser.assert.containsText({
-                        selector: 'h3'
-                      }, "appointments available")
-                        .back()
-                        .waitForElementVisible('body', () => {
-                          locationsToCheck[idx].appointmentsAvailable = true;
-                          resolve();
-                        })
+						browser.assert.containsText({
+							selector: 'h3'
+						}, "appointments available").getText("p[class='tw-mb-5']", (res) => {
+							locationsToCheck[idx].appointmentsAvailable = true;
+							locationsToCheck[idx].earliestDate = res.value;
+							browser.back().waitForElementVisible('body', () => {
+								resolve();
+							})
+						})
                     } else {
 						browser.click("button[data-testid='calendar-next-button']", async () => {
 							browser.pause(1000)
