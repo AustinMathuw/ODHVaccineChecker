@@ -1,8 +1,10 @@
 #!/bin/bash
 
-export searchLocation="Athens, OH 45701, USA"#"2000 PROSPECT AVE E CLEVELAND OH 44115";
-export vaccineLocation="Fruth"#"Wolstein Center"
-export snsArn="arn:aws:sns:us-east-1:731744095435:VaccineBot";
+#export searchLocation="2000 PROSPECT AVE E CLEVELAND OH 44115"
+#export vaccineLocation="Wolstein Center"
+export searchLocation="Athens, OH 45701, USA"
+export vaccineLocation="Fruth"
+export snsArn="arn:aws:sns:us-east-1:731744095435:VaccineBot"
 
 unix="$(date +%s)"
 
