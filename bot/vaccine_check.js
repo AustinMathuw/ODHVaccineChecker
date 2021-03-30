@@ -48,7 +48,8 @@ describe('Vaccine Checker', function() {
                       locationsToCheck.push({
                         location: text.value,
                         childIdx: i + 1,
-                        appointmentsAvailable: false
+                        appointmentsAvailable: false,
+						earliestDate: ""
                       });
                     }
                     resolve();
@@ -63,7 +64,7 @@ describe('Vaccine Checker', function() {
           await new Promise((resolve) => {
             browser.click("div[class='tw-border tw-border-n200 tw-rounded tw-box-border tw-shadow-md']:nth-of-type(" + locationsToCheck[idx].childIdx + ") button[data-testid=location-select-location-continue]", async () => {
               await new Promise((resolve) => {
-                browser.pause(500)
+                browser.pause(1000)
                   .element('css selector', 'h3', async function(result) {
                     if(result.status != -1) {
                       browser.assert.containsText({
@@ -75,10 +76,27 @@ describe('Vaccine Checker', function() {
                           resolve();
                         })
                     } else {
-                      browser.back()
-                        .waitForElementVisible('body', () => {
-                          resolve();
-                        })
+						browser.click("button[data-testid='calendar-next-button']", async () => {
+							browser.pause(1000)
+								.element('css selector', 'h3', async function(result) {
+									if(result.status != -1) {
+										browser.assert.containsText({
+											selector: 'h3'
+										}, "appointments available").getText("p[class='tw-mb-5']", (res) => {
+											locationsToCheck[idx].appointmentsAvailable = true;
+											locationsToCheck[idx].earliestDate = res.value;
+											browser.back().waitForElementVisible('body', () => {
+												resolve();
+											})
+										})
+									} else {
+										browser.back()
+											.waitForElementVisible('body', () => {
+											resolve();
+										})
+									}
+								})
+						})
                     }
                 })
               })
@@ -89,24 +107,23 @@ describe('Vaccine Checker', function() {
         console.log("\n\n\n\n");
         var shouldAlert = false;
         var location = 1;
-        var message = "HELLO";
+        var message = "No appointments found...";
         for (idx in locationsToCheck) {
           if(locationsToCheck[idx].appointmentsAvailable) {
             if(!shouldAlert) {
               beep(3, 500);
               shouldAlert = true;
-              message = "Appointments are available! \n";
-              console.log(message);
+              message = "Appointments are available!\n\n";
             }
             message = message + location + ": " + locationsToCheck[idx].location + "\n";
-            console.log(message);
+            message = message + "	Earliest Date: " + locationsToCheck[idx].earliestDate.replace("For ", "") + "\n\n";
             location++;
           }
         }
 
-        if(!shouldAlert) {
-          console.log("No appointments found...");
-        } else {
+		console.log(message);
+
+        if(shouldAlert) {
           var params = {
             Message: message,
             TopicArn: snsArn
