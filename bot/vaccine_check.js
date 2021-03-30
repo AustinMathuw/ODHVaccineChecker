@@ -2,6 +2,10 @@ var searchLocation = process.env.searchLocation;//"2000 PROSPECT AVE E CLEVELAND
 var vaccineLocation = process.env.vaccineLocation;//"Wolstein Center"
 var snsArn = process.env.snsArn;
 
+console.log(searchLocation);
+console.log(vaccineLocation);
+console.log(snsArn);
+
 var beep = require('beepbeep');
 var AWS = require('aws-sdk');
 AWS.config.update({region: 'us-east-1'});
