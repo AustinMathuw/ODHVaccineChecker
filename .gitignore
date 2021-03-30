@@ -5,4 +5,4 @@ jspm_packages
 # Serverless directories
 .serverless
 bot/chromedriver.log
-bot/tests_output/CHROME_89.0.4389.90_Windows_vaccine_check.xml
+bot/tests_output

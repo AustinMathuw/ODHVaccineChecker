@@ -2,7 +2,7 @@
 
 var child_process = require("child_process");
 module.exports.checkAppointments = async event => {
-  var res = child_process.execSync("cd bot & npx nightwatch .\\vaccine_check.js");
+  var res = child_process.execSync("cd bot && npx nightwatch vaccine_check.js");
   console.log(res);
 
   return {

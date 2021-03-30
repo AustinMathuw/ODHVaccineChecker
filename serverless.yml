@@ -1,7 +1,7 @@
 service: odh-vaccine-bot
 
-# plugins:
-#   - serverless-offline
+plugins:
+  - serverless-offline
 
 provider:
   name: aws
@@ -17,6 +17,8 @@ provider:
 package:
   exclude:
     - node_modules/aws-sdk/**
+    - bot/tests_output
+    - bot/chromedriver.log
 
 functions:
   checkAppointments:

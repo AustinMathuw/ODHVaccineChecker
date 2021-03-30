@@ -10,7 +10,7 @@ describe('Vaccine Checker', function() {
 
   before(browser => browser.url('https://gettheshot.coronavirus.ohio.gov/'));
 
-  test('Check Vaccine Avaliability', function (browser) {
+  test('Check Vaccine Availability', function (browser) {
     browser
       .waitForElementVisible('body')
       .assert.titleContains('Vaccine')
@@ -44,7 +44,7 @@ describe('Vaccine Checker', function() {
                       locationsToCheck.push({
                         location: text.value,
                         childIdx: i + 1,
-                        appoitmentsAvaliable: false
+                        appointmentsAvailable: false
                       });
                     }
                     resolve();
@@ -67,7 +67,7 @@ describe('Vaccine Checker', function() {
                       }, "appointments available")
                         .back()
                         .waitForElementVisible('body', () => {
-                          locationsToCheck[idx].appoitmentsAvaliable = true;
+                          locationsToCheck[idx].appointmentsAvailable = true;
                           resolve();
                         })
                     } else {
@@ -87,11 +87,11 @@ describe('Vaccine Checker', function() {
         var location = 1;
         var message = "HELLO";
         for (idx in locationsToCheck) {
-          if(locationsToCheck[idx].appoitmentsAvaliable) {
+          if(locationsToCheck[idx].appointmentsAvailable) {
             if(!shouldAlert) {
               beep(3, 500);
               shouldAlert = true;
-              message = "Appoitments are avaliable! \n";
+              message = "Appointments are available! \n";
               console.log(message);
             }
             message = message + location + ": " + locationsToCheck[idx].location + "\n";
@@ -101,7 +101,7 @@ describe('Vaccine Checker', function() {
         }
 
         if(!shouldAlert) {
-          console.log("No appoitments found...");
+          console.log("No appointments found...");
         } else {
           var params = {
             Message: message,
