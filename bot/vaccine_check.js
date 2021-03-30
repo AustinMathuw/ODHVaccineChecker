@@ -114,7 +114,7 @@ describe('Vaccine Checker', function() {
             if(!shouldAlert) {
               beep(3, 500);
               shouldAlert = true;
-              message = "COVID-19 Vaccination Appointments are available!\n\n";
+              message = "COVID-19 Vaccination Appointments are available!\n\nSign up here: https://gettheshot.coronavirus.ohio.gov/\nSearch location: " + searchLocation + "\n\n";
             }
             message = message + location + ": " + locationsToCheck[idx].location + "\n";
             message = message + "	Earliest Date: " + locationsToCheck[idx].earliestDate.replace("For ", "") + "\n\n";
