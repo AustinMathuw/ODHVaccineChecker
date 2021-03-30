@@ -6,3 +6,4 @@ jspm_packages
 .serverless
 bot/chromedriver.log
 bot/tests_output
+vaccine.pem
